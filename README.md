@@ -9,10 +9,11 @@
 | ebs\_iops | The baseline input/output (I/O) performance of EBS volumes attached to data nodes. Applicable only for the Provisioned IOPS EBS volume type | string | `"0"` | no |
 | ebs\_volume\_size | Optionally use EBS volumes for data storage by specifying volume size in GB | string | `"0"` | no |
 | ebs\_volume\_type | Storage type of EBS volumes | string | `"gp2"` | no |
-| elasticsearch\_version | Version of Elasticsearch to deploy | string | `"6.3"` | no |
 | elasticsearch\_version | Version of Elasticsearch to deploy | string | n/a | yes |
+| elasticsearch\_version | Version of Elasticsearch to deploy | string | `"6.3"` | no |
 | encrypt\_at\_rest\_enabled | Whether to enable encryption at rest | string | `"true"` | no |
 | encrypt\_at\_rest\_kms\_key\_id | The KMS key id to encrypt the Elasticsearch domain with. If not specified, then it defaults to using the AWS/Elasticsearch service KMS key | string | `""` | no |
+| environment | The environment the elasticsearch cluster is running in i.e. dev, prod etc | string | n/a | yes |
 | instance\_count | Number of data nodes in the cluster | string | `"4"` | no |
 | instance\_type | Elasticsearch instance type for data nodes in the cluster | string | `"t2.small.elasticsearch"` | no |
 | log\_publishing\_index\_enabled | Specifies whether log publishing option for INDEX_SLOW_LOGS is enabled or not | string | `"false"` | no |

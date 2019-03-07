@@ -8,6 +8,10 @@ variable "tags" {
   default = {}
 }
 
+variable "environment" {
+  description = "The environment the elasticsearch cluster is running in i.e. dev, prod etc"
+}
+
 variable "elasticsearch_version" {
   type        = "string"
   default     = "6.3"
