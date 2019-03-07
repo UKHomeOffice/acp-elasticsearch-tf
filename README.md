@@ -10,13 +10,22 @@
 | ebs\_volume\_size | Optionally use EBS volumes for data storage by specifying volume size in GB | string | `"0"` | no |
 | ebs\_volume\_type | Storage type of EBS volumes | string | `"gp2"` | no |
 | elasticsearch\_version | Version of Elasticsearch to deploy | string | `"6.3"` | no |
+| elasticsearch\_version | Version of Elasticsearch to deploy | string | n/a | yes |
 | encrypt\_at\_rest\_enabled | Whether to enable encryption at rest | string | `"true"` | no |
 | encrypt\_at\_rest\_kms\_key\_id | The KMS key id to encrypt the Elasticsearch domain with. If not specified, then it defaults to using the AWS/Elasticsearch service KMS key | string | `""` | no |
 | instance\_count | Number of data nodes in the cluster | string | `"4"` | no |
 | instance\_type | Elasticsearch instance type for data nodes in the cluster | string | `"t2.small.elasticsearch"` | no |
 | log\_publishing\_index\_enabled | Specifies whether log publishing option for INDEX_SLOW_LOGS is enabled or not | string | `"false"` | no |
-| name | Name of the application | string | n/a | yes |
+| name | Name of the elasticsearch cluster | string | n/a | yes |
 | node\_to\_node\_encryption\_enabled | Whether to enable node-to-node encryption | string | `"false"` | no |
 | tags |  | map | `<map>` | no |
 | zone\_awareness\_enabled | Enable zone awareness for Elasticsearch cluster | string | `"true"` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| domain\_arn | ARN of the Elasticsearch domain |
+| domain\_endpoint | Domain-specific endpoint used to submit index, search, and data upload requests |
+| domain\_id | Unique identifier for the Elasticsearch domain |
 

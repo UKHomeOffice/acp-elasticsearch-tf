@@ -2,6 +2,15 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
   domain_name           = "${var.name}"
   elasticsearch_version = "${var.elasticsearch_version}"
 
+  cluster_config {
+    instance_count           = "${var.instance_count}"
+    instance_type            = "${var.instance_type}"
+    dedicated_master_enabled = "${var.dedicated_master_enabled}"
+    dedicated_master_count   = "${var.dedicated_master_count}"
+    dedicated_master_type    = "${var.dedicated_master_type}"
+    zone_awareness_enabled   = "${var.zone_awareness_enabled}"
+  }
+
   ebs_options {
     ebs_enabled = "${var.ebs_volume_size > 0 ? true : false}"
     volume_size = "${var.ebs_volume_size}"
@@ -12,15 +21,6 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     enabled = "${var.encrypt_at_rest_enabled}"
   }
 
-  cluster_config {
-    instance_count           = "${var.instance_count}"
-    instance_type            = "${var.instance_type}"
-    dedicated_master_enabled = "${var.dedicated_master_enabled}"
-    dedicated_master_count   = "${var.dedicated_master_count}"
-    dedicated_master_type    = "${var.dedicated_master_type}"
-    zone_awareness_enabled   = "${var.zone_awareness_enabled}"
-  }
-
   node_to_node_encryption {
     enabled = "${var.node_to_node_encryption_enabled}"
   }
@@ -28,6 +28,8 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
   snapshot_options {
     automated_snapshot_start_hour = "${var.automated_snapshot_start_hour}"
   }
+
+  tags = "${merge(var.tags, map("Name", format("%s-%s", var.environment, var.name)), map("Env", var.environment))}"
 }
 
 resource "aws_iam_user" "elasticsearch_iam_user" {

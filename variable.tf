@@ -1,6 +1,6 @@
 variable "name" {
   type        = "string"
-  description = "Name of the application"
+  description = "Name of the elasticsearch cluster"
 }
 
 variable "tags" {
@@ -11,6 +11,11 @@ variable "tags" {
 variable "elasticsearch_version" {
   type        = "string"
   default     = "6.3"
+  description = "Version of Elasticsearch to deploy"
+}
+
+variable "elasticsearch_version" {
+  type        = "string"
   description = "Version of Elasticsearch to deploy"
 }
 
