@@ -53,7 +53,7 @@ variable "ebs_iops" {
 
 variable "encrypt_at_rest_enabled" {
   type        = "string"
-  default     = "true"
+  default     = "false"
   description = "Whether to enable encryption at rest"
 }
 
