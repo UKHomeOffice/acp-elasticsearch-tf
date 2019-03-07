@@ -57,12 +57,6 @@ variable "encrypt_at_rest_enabled" {
   description = "Whether to enable encryption at rest"
 }
 
-variable "encrypt_at_rest_kms_key_id" {
-  type        = "string"
-  default     = ""
-  description = "The KMS key id to encrypt the Elasticsearch domain with. If not specified, then it defaults to using the AWS/Elasticsearch service KMS key"
-}
-
 variable "log_publishing_index_enabled" {
   type        = "string"
   default     = "false"
