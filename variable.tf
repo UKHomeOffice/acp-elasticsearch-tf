@@ -31,7 +31,7 @@ variable "instance_count" {
 
 variable "zone_awareness_enabled" {
   type        = "string"
-  default     = "true"
+  default     = "false"
   description = "Enable zone awareness for Elasticsearch cluster"
 }
 

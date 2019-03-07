@@ -18,7 +18,7 @@
 | name | Name of the elasticsearch cluster | string | n/a | yes |
 | node\_to\_node\_encryption\_enabled | Whether to enable node-to-node encryption | string | `"false"` | no |
 | tags |  | map | `<map>` | no |
-| zone\_awareness\_enabled | Enable zone awareness for Elasticsearch cluster | string | `"true"` | no |
+| zone\_awareness\_enabled | Enable zone awareness for Elasticsearch cluster | string | `"false"` | no |
 
 ## Outputs
 
