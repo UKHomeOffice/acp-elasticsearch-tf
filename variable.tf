@@ -18,11 +18,6 @@ variable "elasticsearch_version" {
   description = "Version of Elasticsearch to deploy"
 }
 
-variable "elasticsearch_version" {
-  type        = "string"
-  description = "Version of Elasticsearch to deploy"
-}
-
 variable "instance_type" {
   type        = "string"
   default     = "t2.small.elasticsearch"
