@@ -1,35 +1,47 @@
+terraform {
+  required_version = ">= 0.12"
+}
+
 resource "aws_elasticsearch_domain" "elasticsearch" {
-  domain_name           = "${var.name}"
-  elasticsearch_version = "${var.elasticsearch_version}"
+  domain_name           = var.name
+  elasticsearch_version = var.elasticsearch_version
 
   cluster_config {
-    instance_count           = "${var.instance_count}"
-    instance_type            = "${var.instance_type}"
-    dedicated_master_enabled = "${var.dedicated_master_enabled}"
-    dedicated_master_count   = "${var.dedicated_master_count}"
-    dedicated_master_type    = "${var.dedicated_master_type}"
-    zone_awareness_enabled   = "${var.zone_awareness_enabled}"
+    instance_count           = var.instance_count
+    instance_type            = var.instance_type
+    dedicated_master_enabled = var.dedicated_master_enabled
+    dedicated_master_count   = var.dedicated_master_count
+    dedicated_master_type    = var.dedicated_master_type
+    zone_awareness_enabled   = var.zone_awareness_enabled
   }
 
   ebs_options {
-    ebs_enabled = "${var.ebs_volume_size > 0 ? true : false}"
-    volume_size = "${var.ebs_volume_size}"
-    volume_type = "${var.ebs_volume_type}"
+    ebs_enabled = var.ebs_volume_size > 0 ? true : false
+    volume_size = var.ebs_volume_size
+    volume_type = var.ebs_volume_type
   }
 
   encrypt_at_rest {
-    enabled = "${var.encrypt_at_rest_enabled}"
+    enabled = var.encrypt_at_rest_enabled
   }
 
   node_to_node_encryption {
-    enabled = "${var.node_to_node_encryption_enabled}"
+    enabled = var.node_to_node_encryption_enabled
   }
 
   snapshot_options {
-    automated_snapshot_start_hour = "${var.automated_snapshot_start_hour}"
+    automated_snapshot_start_hour = var.automated_snapshot_start_hour
   }
 
-  tags = "${merge(var.tags, map("Name", format("%s-%s", var.environment, var.name)), map("Env", var.environment))}"
+  tags = merge(
+    var.tags,
+    {
+      "Name" = format("%s-%s", var.environment, var.name)
+    },
+    {
+      "Env" = var.environment
+    },
+  )
 }
 
 resource "aws_iam_user" "elasticsearch_iam_user" {
@@ -38,7 +50,7 @@ resource "aws_iam_user" "elasticsearch_iam_user" {
 }
 
 resource "aws_elasticsearch_domain_policy" "elasticsearch" {
-  domain_name = "${aws_elasticsearch_domain.elasticsearch.domain_name}"
+  domain_name = aws_elasticsearch_domain.elasticsearch.domain_name
 
   access_policies = <<POLICIES
 {
@@ -53,4 +65,5 @@ resource "aws_elasticsearch_domain_policy" "elasticsearch" {
     ]
 }
 POLICIES
+
 }

@@ -1,10 +1,10 @@
 variable "name" {
-  type        = "string"
+  type        = string
   description = "Name of the elasticsearch cluster"
 }
 
 variable "tags" {
-  type    = "map"
+  type    = map(string)
   default = {}
 }
 
@@ -13,13 +13,13 @@ variable "environment" {
 }
 
 variable "elasticsearch_version" {
-  type        = "string"
+  type        = string
   default     = "6.3"
   description = "Version of Elasticsearch to deploy"
 }
 
 variable "instance_type" {
-  type        = "string"
+  type        = string
   default     = "t2.small.elasticsearch"
   description = "Elasticsearch instance type for data nodes in the cluster"
 }
@@ -30,7 +30,7 @@ variable "instance_count" {
 }
 
 variable "zone_awareness_enabled" {
-  type        = "string"
+  type        = string
   default     = "false"
   description = "Enable zone awareness for Elasticsearch cluster"
 }
@@ -41,7 +41,7 @@ variable "ebs_volume_size" {
 }
 
 variable "ebs_volume_type" {
-  type        = "string"
+  type        = string
   default     = "gp2"
   description = "Storage type of EBS volumes"
 }
@@ -52,13 +52,13 @@ variable "ebs_iops" {
 }
 
 variable "encrypt_at_rest_enabled" {
-  type        = "string"
+  type        = string
   default     = "false"
   description = "Whether to enable encryption at rest"
 }
 
 variable "log_publishing_index_enabled" {
-  type        = "string"
+  type        = string
   default     = "false"
   description = "Specifies whether log publishing option for INDEX_SLOW_LOGS is enabled or not"
 }
@@ -69,7 +69,7 @@ variable "automated_snapshot_start_hour" {
 }
 
 variable "dedicated_master_enabled" {
-  type        = "string"
+  type        = string
   default     = "false"
   description = "Indicates whether dedicated master nodes are enabled for the cluster"
 }
@@ -80,13 +80,14 @@ variable "dedicated_master_count" {
 }
 
 variable "dedicated_master_type" {
-  type        = "string"
+  type        = string
   default     = "t2.small.elasticsearch"
   description = "Instance type of the dedicated master nodes in the cluster"
 }
 
 variable "node_to_node_encryption_enabled" {
-  type        = "string"
+  type        = string
   default     = "false"
   description = "Whether to enable node-to-node encryption"
 }
+
