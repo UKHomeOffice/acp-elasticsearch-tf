@@ -3,6 +3,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | automated\_snapshot\_start\_hour | Hour at which automated snapshots are taken, in UTC | string | `"0"` | no |
+| cidr\_blocks | A list of network cidr block which are permitted acccess to a vpc domain | list | ["0.0.0.0/0"] | no |
 | dedicated\_master\_count | Number of dedicated master nodes in the cluster | string | `"0"` | no |
 | dedicated\_master\_enabled | Indicates whether dedicated master nodes are enabled for the cluster | string | `"false"` | no |
 | dedicated\_master\_type | Instance type of the dedicated master nodes in the cluster | string | `"t2.small.elasticsearch"` | no |
@@ -17,7 +18,9 @@
 | log\_publishing\_index\_enabled | Specifies whether log publishing option for INDEX_SLOW_LOGS is enabled or not | string | `"false"` | no |
 | name | Name of the elasticsearch cluster | string | n/a | yes |
 | node\_to\_node\_encryption\_enabled | Whether to enable node-to-node encryption | string | `"false"` | no |
+| subnet\_ids | The list of subnet IDs associated to a vpc, for vpc domains | list | [] | no |
 | tags |  | map | `<map>` | no |
+| vpc\_id | The VPC ID to create the resources within | string | null | no |
 | zone\_awareness\_enabled | Enable zone awareness for Elasticsearch cluster | string | `"false"` | no |
 
 ## Outputs

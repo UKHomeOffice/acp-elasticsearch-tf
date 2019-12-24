@@ -33,6 +33,14 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     automated_snapshot_start_hour = var.automated_snapshot_start_hour
   }
 
+  dynamic "vpc_options" {
+    for_each = var.vpc_id == null ? [] : [var.vpc_id]
+    content {
+      subnet_ids         = var.subnet_ids
+      security_group_ids = ["${aws_security_group.elasticsearch[0].id}"]
+    }
+  }
+
   tags = merge(
     var.tags,
     {
@@ -66,4 +74,19 @@ resource "aws_elasticsearch_domain_policy" "elasticsearch" {
 }
 POLICIES
 
+}
+
+resource "aws_security_group" "elasticsearch" {
+  count       = var.vpc_id == null ? 0 : 1
+  name        = "${var.vpc_id}-elasticsearch-${var.name}"
+  description = "Managed by Terraform"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port = 443
+    to_port   = 443
+    protocol  = "tcp"
+
+    cidr_blocks = var.cidr_blocks
+  }
 }

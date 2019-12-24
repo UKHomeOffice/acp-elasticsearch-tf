@@ -91,3 +91,17 @@ variable "node_to_node_encryption_enabled" {
   description = "Whether to enable node-to-node encryption"
 }
 
+variable "vpc_id" {
+  description = "The VPC ID to create the resources within"
+  default     = null
+}
+
+variable "subnet_ids" {
+  description = "The list of subnet IDs associated to a vpc, for vpc domains"
+  default     = []
+}
+
+variable "cidr_blocks" {
+  description = "A list of network cidr block which are permitted acccess to a vpc domain"
+  default     = ["0.0.0.0/0"]
+}
