@@ -42,7 +42,8 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
   }
 
   domain_endpoint_options {
-    enforce_https = var.require_https
+    enforce_https       = var.require_https
+    tls_security_policy = "Policy-Min-TLS-1-0-2019-07"
   }
 
   tags = merge(
