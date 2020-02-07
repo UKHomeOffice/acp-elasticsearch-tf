@@ -91,6 +91,12 @@ variable "node_to_node_encryption_enabled" {
   description = "Whether to enable node-to-node encryption"
 }
 
+variable "require_https" {
+  type        = string
+  default     = "false"
+  description = "Determines whether https required for connections to this domain"
+}
+
 variable "vpc_id" {
   description = "The VPC ID to create the resources within"
   default     = null

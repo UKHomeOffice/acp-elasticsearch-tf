@@ -18,6 +18,7 @@
 | log\_publishing\_index\_enabled | Specifies whether log publishing option for INDEX_SLOW_LOGS is enabled or not | string | `"false"` | no |
 | name | Name of the elasticsearch cluster | string | n/a | yes |
 | node\_to\_node\_encryption\_enabled | Whether to enable node-to-node encryption | string | `"false"` | no |
+| require_https | Determines whether https required for connections to this domain | string | `"false"` | no |
 | subnet\_ids | The list of subnet IDs associated to a vpc, for vpc domains | list | [] | no |
 | tags |  | map | `<map>` | no |
 | vpc\_id | The VPC ID to create the resources within | string | null | no |

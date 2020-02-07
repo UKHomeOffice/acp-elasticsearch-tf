@@ -41,6 +41,10 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     }
   }
 
+  domain_endpoint_options {
+    enforce_https = var.require_https
+  }
+
   tags = merge(
     var.tags,
     {
