@@ -13,6 +13,13 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     dedicated_master_count   = var.dedicated_master_count
     dedicated_master_type    = var.dedicated_master_type
     zone_awareness_enabled   = var.zone_awareness_enabled
+
+    dynamic "zone_awareness_config" {
+      for_each = var.zone_awareness_enabled ? [true] : []
+      content {
+        availability_zone_count = var.zone_awareness_count
+      }
+    }
   }
 
   ebs_options {

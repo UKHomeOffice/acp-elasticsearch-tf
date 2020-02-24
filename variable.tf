@@ -35,6 +35,11 @@ variable "zone_awareness_enabled" {
   description = "Enable zone awareness for Elasticsearch cluster"
 }
 
+variable "zone_awareness_count" {
+  default     = 2
+  description = "Number of availability zones for zone awareness"
+}
+
 variable "ebs_volume_size" {
   description = "Optionally use EBS volumes for data storage by specifying volume size in GB"
   default     = 0

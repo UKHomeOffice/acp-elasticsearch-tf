@@ -22,6 +22,7 @@
 | subnet\_ids | The list of subnet IDs associated to a vpc, for vpc domains | list | [] | no |
 | tags |  | map | `<map>` | no |
 | vpc\_id | The VPC ID to create the resources within | string | null | no |
+| zone\_awareness\_count | Number of availability zones for zone awareness | string | `"2"` | no |
 | zone\_awareness\_enabled | Enable zone awareness for Elasticsearch cluster | string | `"false"` | no |
 
 ## Outputs
