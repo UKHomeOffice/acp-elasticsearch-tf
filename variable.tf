@@ -86,7 +86,7 @@ variable "dedicated_master_count" {
 
 variable "dedicated_master_type" {
   type        = string
-  default     = "t2.small.elasticsearch"
+  default     = "t3.small.elasticsearch"
   description = "Instance type of the dedicated master nodes in the cluster"
 }
 
