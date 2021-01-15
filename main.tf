@@ -77,10 +77,16 @@ resource "aws_elasticsearch_domain_policy" "elasticsearch" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Action": "es:*",
+            "Action": [
+              "es:ESHttp*",
+              "es:Describe*"
+            ],
             "Principal": { "AWS": "${aws_iam_user.elasticsearch_iam_user.arn}" },
             "Effect": "Allow",
-            "Resource": "${aws_elasticsearch_domain.elasticsearch.arn}/*"
+            "Resource": [
+              "${aws_elasticsearch_domain.elasticsearch.arn}/*",
+              "${aws_elasticsearch_domain.elasticsearch.arn}"
+            ]
         }
     ]
 }
