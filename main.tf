@@ -69,6 +69,26 @@ resource "aws_iam_user" "elasticsearch_iam_user" {
   path = "/"
 }
 
+resource "aws_iam_user_policy" "elasticsearch_iam_user_policy" {
+  name = "${aws_iam_user.elasticsearch_iam_user.name}-policy"
+  user = aws_iam_user.elasticsearch_iam_user.name
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "es:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "${aws_elasticsearch_domain.elasticsearch.arn}"
+    }
+  ]
+}
+EOF
+}
+
 resource "aws_elasticsearch_domain_policy" "elasticsearch" {
   domain_name = aws_elasticsearch_domain.elasticsearch.domain_name
 
