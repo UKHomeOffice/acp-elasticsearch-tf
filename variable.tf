@@ -116,3 +116,13 @@ variable "cidr_blocks" {
   description = "A list of network cidr block which are permitted acccess to a vpc domain"
   default     = ["0.0.0.0/0"]
 }
+
+variable "email_addresses" {
+  description = "A list of email addresses for key rotation notifications."
+  default     = []
+}
+
+variable "key_rotation" {
+  description = "Enable email notifications for old IAM keys."
+  default     = "true"
+}
