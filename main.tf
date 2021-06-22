@@ -135,3 +135,9 @@ resource "aws_security_group" "elasticsearch" {
     cidr_blocks = var.cidr_blocks
   }
 }
+
+module "self_serve_access_keys" {
+  source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
+
+  user_names = aws_iam_user.elasticsearch_iam_user.*.name
+}
