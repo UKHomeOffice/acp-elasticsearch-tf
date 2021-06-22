@@ -2,6 +2,11 @@ terraform {
   required_version = ">= 0.12"
 }
 
+locals {
+  email_tags = { for i, email in var.email_addresses : "email${i}" => email }
+}
+
+
 resource "aws_elasticsearch_domain" "elasticsearch" {
   domain_name           = var.name
   elasticsearch_version = var.elasticsearch_version
@@ -67,6 +72,14 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
 resource "aws_iam_user" "elasticsearch_iam_user" {
   name = "${var.name}-iam-user"
   path = "/"
+
+  tags = merge(
+    var.tags,
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    },
+  )
 }
 
 resource "aws_iam_user_policy" "elasticsearch_iam_user_policy" {
