@@ -12,7 +12,9 @@
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_self_serve_access_keys"></a> [self\_serve\_access\_keys](#module\_self\_serve\_access\_keys) | git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys | v0.1.0 |
 
 ## Resources
 
@@ -23,6 +25,7 @@ No modules.
 | [aws_iam_user.elasticsearch_iam_user](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user) | resource |
 | [aws_iam_user_policy.elasticsearch_iam_user_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy) | resource |
 | [aws_security_group.elasticsearch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_iam_policy_document.elasticsearch_iam_user_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
@@ -47,6 +50,8 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | Name of the elasticsearch cluster | `string` | n/a | yes |
 | <a name="input_node_to_node_encryption_enabled"></a> [node\_to\_node\_encryption\_enabled](#input\_node\_to\_node\_encryption\_enabled) | Whether to enable node-to-node encryption | `string` | `"false"` | no |
 | <a name="input_require_https"></a> [require\_https](#input\_require\_https) | Determines whether https required for connections to this domain | `string` | `"false"` | no |
+| <a name="input_s3_bucket"></a> [s3\_bucket](#input\_s3\_bucket) | Allow ES user to get objects from specified bucket | `any` | `null` | no |
+| <a name="input_s3_bucket_kms_key"></a> [s3\_bucket\_kms\_key](#input\_s3\_bucket\_kms\_key) | Allow ES user to use specified KMS key to decrypt objects from given bucket | `any` | `null` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | The list of subnet IDs associated to a vpc, for vpc domains | `list` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | `{}` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC ID to create the resources within | `any` | `null` | no |

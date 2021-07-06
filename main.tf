@@ -27,6 +27,17 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     }
   }
 
+  advanced_security_options {
+    enabled = true
+
+    internal_user_database_enabled = true
+
+    master_user_options {
+      master_user_name = var.master_user_name
+      master_user_password = var.master_user_password
+    }
+  }
+
   ebs_options {
     ebs_enabled = var.ebs_volume_size > 0 ? true : false
     volume_size = var.ebs_volume_size
@@ -86,20 +97,59 @@ resource "aws_iam_user_policy" "elasticsearch_iam_user_policy" {
   name = "${aws_iam_user.elasticsearch_iam_user.name}-policy"
   user = aws_iam_user.elasticsearch_iam_user.name
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "es:Describe*"
-      ],
-      "Effect": "Allow",
-      "Resource": "${aws_elasticsearch_domain.elasticsearch.arn}"
-    }
-  ]
+  policy = data.aws_iam_policy_document.elasticsearch_iam_user_policy_document.json
 }
-EOF
+
+data "aws_iam_policy_document" "elasticsearch_iam_user_policy_document" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "es:AssociatePackage",
+      "es:Describe*",
+      "es:DissociatePackage",
+      "es:ListPackagesForDomain",
+    ]
+
+    resources = [aws_elasticsearch_domain.elasticsearch.arn]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "es:CreatePackage",
+      "es:DescribePackages",
+    ]
+
+    resources = ["*"]
+  }
+
+  dynamic statement {
+    for_each = var.s3_bucket != null ? [1] : []
+    content {
+      effect = "Allow"
+      actions = [
+        "s3:GetObject",
+        "s3:GetObjectVersion",
+      ]
+
+      resources = ["${var.s3_bucket}/*"]
+    }
+  }
+
+  dynamic statement {
+    for_each = var.s3_bucket_kms_key != null ? [1] : []
+    content {
+      effect = "Allow"
+      actions = [
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:GetKeyPolicy",
+        "kms:GenerateDataKeyWithoutPlaintext",
+      ]
+
+      resources = [var.s3_bucket_kms_key]
+    }
+  }
 }
 
 resource "aws_elasticsearch_domain_policy" "elasticsearch" {
