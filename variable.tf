@@ -126,3 +126,13 @@ variable "key_rotation" {
   description = "Enable email notifications for old IAM keys."
   default     = "true"
 }
+
+variable "s3_bucket" {
+  description = "Allow ES user to get objects from specified bucket"
+  default     = null
+}
+
+variable "s3_bucket_kms_key" {
+  description = "Allow ES user to use specified KMS key to decrypt objects from given bucket"
+  default     = null
+}
