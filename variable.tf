@@ -136,3 +136,23 @@ variable "s3_bucket_kms_key" {
   description = "Allow ES user to use specified KMS key to decrypt objects from given bucket"
   default     = null
 }
+
+
+variable "master_user_name" {
+  default = ""
+}
+
+variable "master_user_password" {
+  description = "The master user password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+  default     = ""
+}
+
+variable "advanced_security_options_enabled" {
+  description = "Enable advanced security option"
+  default     = false
+}
+
+variable "internal_user_database_enabled" {
+  description = "Enable the internal user database"
+  default     = false
+}
