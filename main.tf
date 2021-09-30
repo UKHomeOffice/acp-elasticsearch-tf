@@ -27,6 +27,17 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     }
   }
 
+  advanced_security_options {
+    enabled = var.advanced_security_options_enabled
+
+    internal_user_database_enabled = var.internal_user_database_enabled
+
+    master_user_options {
+      master_user_name     = var.master_user_name
+      master_user_password = var.master_user_password
+    }
+  }
+
   ebs_options {
     ebs_enabled = var.ebs_volume_size > 0 ? true : false
     volume_size = var.ebs_volume_size
