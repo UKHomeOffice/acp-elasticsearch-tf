@@ -153,22 +153,27 @@ data "aws_iam_policy_document" "elasticsearch_iam_user_policy_document" {
 }
 
 resource "aws_elasticsearch_domain_policy" "elasticsearch" {
+  count       = var.policy != 0 ? 1 : 0
   domain_name = aws_elasticsearch_domain.elasticsearch.domain_name
 
-  access_policies = <<POLICIES
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "es:*",
-            "Principal": { "AWS": "${aws_iam_user.elasticsearch_iam_user.arn}" },
-            "Effect": "Allow",
-            "Resource": "${aws_elasticsearch_domain.elasticsearch.arn}/*"
-        }
-    ]
+  access_policies = var.policy != "default" ? var.policy : data.aws_iam_policy_document.elasticsearch_default_policy_document[0].json
 }
-POLICIES
 
+data "aws_iam_policy_document" "elasticsearch_default_policy_document" {
+  count   = var.policy != 0 ? 1 : 0
+  version = "2012-10-17"
+  statement {
+    sid    = "Elasticsearch Permissions"
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = ["${aws_iam_user.elasticsearch_iam_user.arn}"]
+    }
+    actions = [
+      "es:*"
+    ]
+    resources = ["${aws_elasticsearch_domain.elasticsearch.arn}/*"]
+  }
 }
 
 resource "aws_security_group" "elasticsearch" {
