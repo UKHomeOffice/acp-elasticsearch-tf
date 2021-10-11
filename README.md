@@ -53,6 +53,7 @@
 | <a name="input_master_user_password"></a> [master\_user\_password](#input\_master\_user\_password) | Master user password for Kibana login  | `string` | `""` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the elasticsearch cluster | `string` | n/a | yes |
 | <a name="input_node_to_node_encryption_enabled"></a> [node\_to\_node\_encryption\_enabled](#input\_node\_to\_node\_encryption\_enabled) | Whether to enable node-to-node encryption | `string` | `"false"` | no |
+| <a name="input_policy"></a> [policy](#input\_policy) | The JSON policy for the Elasticsearch (Will use a default if custom is not set)| `string` | `"default"` | no |
 | <a name="input_require_https"></a> [require\_https](#input\_require\_https) | Determines whether https required for connections to this domain | `string` | `"false"` | no |
 | <a name="input_s3_bucket"></a> [s3\_bucket](#input\_s3\_bucket) | Allow ES user to get objects from specified bucket | `any` | `null` | no |
 | <a name="input_s3_bucket_kms_key"></a> [s3\_bucket\_kms\_key](#input\_s3\_bucket\_kms\_key) | Allow ES user to use specified KMS key to decrypt objects from given bucket | `any` | `null` | no |

@@ -96,6 +96,11 @@ variable "node_to_node_encryption_enabled" {
   description = "Whether to enable node-to-node encryption"
 }
 
+variable "policy" {
+  description = "The JSON policy for the Elasticsearch"
+  default     = "default"
+}
+
 variable "require_https" {
   type        = string
   default     = "false"
