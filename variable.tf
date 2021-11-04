@@ -161,3 +161,8 @@ variable "internal_user_database_enabled" {
   description = "Enable the internal user database"
   default     = false
 }
+
+variable "audit_logs_enabled" {
+  description = "Enable audit logging for the Elasticsearch instance"
+  default     = false
+}
