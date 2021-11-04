@@ -69,6 +69,12 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     tls_security_policy = "Policy-Min-TLS-1-0-2019-07"
   }
 
+  log_publishing_options {
+    enabled                  = var.audit_logs_enabled
+    cloudwatch_log_group_arn = aws_cloudwatch_log_group.elasticsearch_log_group.arn
+    log_type                 = "AUDIT_LOGS"
+  }
+
   tags = merge(
     var.tags,
     {
