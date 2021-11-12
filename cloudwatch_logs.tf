@@ -29,3 +29,51 @@ resource "aws_cloudwatch_log_resource_policy" "elasticsearch_log_group_policy" {
 }
 CONFIG
 }
+
+resource "aws_iam_user" "elasticsearch_audit_logs_iam_user" {
+  count = var.audit_logs_enabled ? 1 : 0
+
+  name = "${var.name}-Logs-User"
+
+  tags = merge(
+    var.tags,
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    },
+  )
+
+}
+
+resource "aws_iam_policy" "elasticsearch_audit_log_policy" {
+  count = var.audit_logs_enabled ? 1 : 0
+
+  name        = "${var.name}-LogAccessPolicy"
+  description = "Allows access to audit logs for the Elasticsearch instance: ${var.name}"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AccessESAuditLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:Get*",
+        "logs:List*",
+        "logs:Filter*",
+      ],
+      "Resource": "${aws_cloudwatch_log_group.elasticsearch_log_group.arn}"
+    }
+  ]
+}
+EOF
+
+}
+
+resource "aws_iam_user_policy_attachment" "elasticsearch_audit_log_policy_attachement" {
+  count = var.audit_logs_enabled ? 1 : 0
+
+  user       = aws_iam_user.elasticsearch_audit_logs_iam_user[0].name
+  policy_arn = aws_iam_policy.elasticsearch_audit_log_policy[0].arn
+}
