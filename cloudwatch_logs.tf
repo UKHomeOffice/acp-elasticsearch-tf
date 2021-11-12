@@ -65,7 +65,7 @@ resource "aws_iam_policy" "elasticsearch_audit_log_policy" {
         "logs:FilterLogEvents",
         "logs:TestMetricFilter",
         "logs:StartQuery",
-        "logs:StopQuery",
+        "logs:StopQuery"
       ],
       "Resource": "${aws_cloudwatch_log_group.elasticsearch_log_group.arn}"
     }
