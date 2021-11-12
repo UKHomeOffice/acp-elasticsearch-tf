@@ -3,6 +3,7 @@
 resource "aws_cloudwatch_log_group" "elasticsearch_log_group" {
   name = "${var.name}-log-group"
 
+  tags = var.tags
 }
 
 resource "aws_cloudwatch_log_resource_policy" "elasticsearch_log_group_policy" {
