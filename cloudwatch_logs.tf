@@ -59,9 +59,13 @@ resource "aws_iam_policy" "elasticsearch_audit_log_policy" {
       "Sid": "AccessESAuditLogs",
       "Effect": "Allow",
       "Action": [
+        "logs:Describe*",
         "logs:Get*",
         "logs:List*",
-        "logs:Filter*"
+        "logs:FilterLogEvents",
+        "logs:TestMetricFilter",
+        "logs:StartQuery",
+        "logs:StopQuery",
       ],
       "Resource": "${aws_cloudwatch_log_group.elasticsearch_log_group.arn}"
     }
