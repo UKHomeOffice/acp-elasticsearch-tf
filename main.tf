@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.12"
+  required_version = ">= 0.13"
 }
 
 locals {
@@ -60,7 +60,7 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     for_each = var.vpc_id == null ? [] : [var.vpc_id]
     content {
       subnet_ids         = var.subnet_ids
-      security_group_ids = ["${aws_security_group.elasticsearch[0].id}"]
+      security_group_ids = [aws_security_group.elasticsearch[0].id]
     }
   }
 
@@ -173,7 +173,7 @@ data "aws_iam_policy_document" "elasticsearch_default_policy_document" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["${aws_iam_user.elasticsearch_iam_user.arn}"]
+      identifiers = [aws_iam_user.elasticsearch_iam_user.arn]
     }
     actions = [
       "es:*"
