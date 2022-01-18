@@ -113,16 +113,19 @@ variable "vpc_id" {
 }
 
 variable "subnet_ids" {
+  type        = list(string)
   description = "The list of subnet IDs associated to a vpc, for vpc domains"
   default     = []
 }
 
 variable "cidr_blocks" {
+  type        = list(string)
   description = "A list of network cidr block which are permitted acccess to a vpc domain"
   default     = ["0.0.0.0/0"]
 }
 
 variable "email_addresses" {
+  type        = list(string)
   description = "A list of email addresses for key rotation notifications."
   default     = []
 }
@@ -153,16 +156,19 @@ variable "master_user_password" {
 }
 
 variable "advanced_security_options_enabled" {
+  type        = bool
   description = "Enable advanced security option"
   default     = false
 }
 
 variable "internal_user_database_enabled" {
+  type        = bool
   description = "Enable the internal user database"
   default     = false
 }
 
 variable "audit_logs_enabled" {
+  type        = bool
   description = "Enable audit logging for the Elasticsearch instance"
   default     = false
 }

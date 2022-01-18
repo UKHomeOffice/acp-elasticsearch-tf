@@ -1,7 +1,3 @@
-terraform {
-  required_version = ">= 0.13"
-}
-
 locals {
   email_tags = { for i, email in var.email_addresses : "email${i}" => email }
 }
@@ -129,7 +125,7 @@ data "aws_iam_policy_document" "elasticsearch_iam_user_policy_document" {
     resources = ["*"]
   }
 
-  dynamic statement {
+  dynamic "statement" {
     for_each = var.s3_bucket != null ? [1] : []
     content {
       effect = "Allow"
@@ -142,7 +138,7 @@ data "aws_iam_policy_document" "elasticsearch_iam_user_policy_document" {
     }
   }
 
-  dynamic statement {
+  dynamic "statement" {
     for_each = var.s3_bucket_kms_key != null ? [1] : []
     content {
       effect = "Allow"
