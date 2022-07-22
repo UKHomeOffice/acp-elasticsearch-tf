@@ -1,3 +1,8 @@
+## Upgrading
+### v1 to v2
+
+Version 2 the input variable tls_security_policy was implemented with a default of TLS 1.2, unless the tenant has agreed to change the minimum TLS version this should be set to "Policy-Min-TLS-1-0-2019-07".
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -68,6 +73,7 @@
 | <a name="input_s3_bucket_kms_key"></a> [s3\_bucket\_kms\_key](#input\_s3\_bucket\_kms\_key) | Allow ES user to use specified KMS key to decrypt objects from given bucket | `any` | `null` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | The list of subnet IDs associated to a vpc, for vpc domains | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | `{}` | no |
+| <a name="input_tls_security_policy"></a> [tls\_security\_policy](#input\_tls\_security\_policy) | Default TLS security policy. Which controls the minimum TLS version required for traffic to the domain. Valid values Policy-Min-TLS-1-0-2019-07 Policy-Min-TLS-1-2-2019-07 | `string` | `"Policy-Min-TLS-1-2-2019-07"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC ID to create the resources within | `any` | `null` | no |
 | <a name="input_zone_awareness_count"></a> [zone\_awareness\_count](#input\_zone\_awareness\_count) | Number of availability zones for zone awareness | `number` | `2` | no |
 | <a name="input_zone_awareness_enabled"></a> [zone\_awareness\_enabled](#input\_zone\_awareness\_enabled) | Enable zone awareness for Elasticsearch cluster | `string` | `"false"` | no |

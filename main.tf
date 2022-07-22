@@ -62,7 +62,7 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
 
   domain_endpoint_options {
     enforce_https       = var.require_https
-    tls_security_policy = "Policy-Min-TLS-1-0-2019-07"
+    tls_security_policy = var.tls_security_policy
   }
 
   log_publishing_options {

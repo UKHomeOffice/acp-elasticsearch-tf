@@ -172,3 +172,9 @@ variable "audit_logs_enabled" {
   description = "Enable audit logging for the Elasticsearch instance"
   default     = false
 }
+
+variable "tls_security_policy" {
+  type        = string
+  description = "Default TLS security policy. Which controls the minimum TLS version required for traffic to the domain. Valid values Policy-Min-TLS-1-0-2019-07 Policy-Min-TLS-1-2-2019-07"
+  default     = "Policy-Min-TLS-1-2-2019-07"
+}
