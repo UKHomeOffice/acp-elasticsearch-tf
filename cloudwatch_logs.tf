@@ -1,12 +1,13 @@
 # AUDIT LOGS
 
 resource "aws_cloudwatch_log_group" "elasticsearch_log_group" {
-  name = "${var.name}-log-group"
-
-  tags = var.tags
+  count = var.audit_logs_enabled ? 1 : 0
+  name  = "${var.name}-log-group"
+  tags  = var.tags
 }
 
 resource "aws_cloudwatch_log_resource_policy" "elasticsearch_log_group_policy" {
+  count       = var.audit_logs_enabled ? 1 : 0
   policy_name = "${var.name}-log-group-policy"
 
   policy_document = <<CONFIG
@@ -67,7 +68,7 @@ resource "aws_iam_policy" "elasticsearch_audit_log_policy" {
         "logs:StartQuery",
         "logs:StopQuery"
       ],
-      "Resource": "${aws_cloudwatch_log_group.elasticsearch_log_group.arn}:*"
+      "Resource": "${aws_cloudwatch_log_group.elasticsearch_log_group[0].arn}:*"
     }
   ]
 }
