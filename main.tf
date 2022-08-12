@@ -65,13 +65,10 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     tls_security_policy = var.tls_security_policy
   }
 
-  dynamic "log_publishing_options" {
-    for_each = var.audit_logs_enabled ? [1] : []
-    content {
-      enabled                  = true
-      cloudwatch_log_group_arn = aws_cloudwatch_log_group.elasticsearch_log_group[0].arn
-      log_type                 = "AUDIT_LOGS"
-    }
+  log_publishing_options {
+    enabled                  = var.audit_logs_enabled
+    cloudwatch_log_group_arn = var.audit_logs_enabled ? aws_cloudwatch_log_group.elasticsearch_log_group[0].arn : ""
+    log_type                 = "AUDIT_LOGS"
   }
 
   tags = merge(
