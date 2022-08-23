@@ -28,7 +28,6 @@ Version 2 the input variable tls_security_policy was implemented with a default 
 | Name | Type |
 |------|------|
 | [aws_cloudwatch_log_group.elasticsearch_log_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [aws_cloudwatch_log_resource_policy.elasticsearch_log_group_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_resource_policy) | resource |
 | [aws_elasticsearch_domain.elasticsearch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticsearch_domain) | resource |
 | [aws_elasticsearch_domain_policy.elasticsearch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticsearch_domain_policy) | resource |
 | [aws_iam_policy.elasticsearch_audit_log_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -63,6 +62,7 @@ Version 2 the input variable tls_security_policy was implemented with a default 
 | <a name="input_internal_user_database_enabled"></a> [internal\_user\_database\_enabled](#input\_internal\_user\_database\_enabled) | Enable the internal user database | `bool` | `false` | no |
 | <a name="input_key_rotation"></a> [key\_rotation](#input\_key\_rotation) | Enable email notifications for old IAM keys. | `string` | `"true"` | no |
 | <a name="input_log_publishing_index_enabled"></a> [log\_publishing\_index\_enabled](#input\_log\_publishing\_index\_enabled) | Specifies whether log publishing option for INDEX\_SLOW\_LOGS is enabled or not | `string` | `"false"` | no |
+| <a name="input_master_user_iam_enabled"></a> [master\_user\_iam\_enabled](#input\_master\_user\_iam\_enabled) | If set to true, the IAM user created by this module will be the master user of the domain. | `bool` | `false` | no |
 | <a name="input_master_user_name"></a> [master\_user\_name](#input\_master\_user\_name) | n/a | `string` | `""` | no |
 | <a name="input_master_user_password"></a> [master\_user\_password](#input\_master\_user\_password) | The master user password must contain at least one uppercase letter, one lowercase letter, one number, and one special character. | `string` | `""` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the elasticsearch cluster | `string` | n/a | yes |
