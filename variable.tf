@@ -145,6 +145,10 @@ variable "s3_bucket_kms_key" {
   default     = null
 }
 
+variable "master_user_iam_enabled" {
+  description = "If set to true, the IAM user created by this module will be the master user of the domain."
+  default = false
+}
 
 variable "master_user_name" {
   default = ""

@@ -29,6 +29,7 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     internal_user_database_enabled = var.internal_user_database_enabled
 
     master_user_options {
+      master_user_arn      = var.master_user_iam_enabled == true ? aws_iam_user.elasticsearch_iam_user.arn : null
       master_user_name     = var.master_user_name
       master_user_password = var.master_user_password
     }
