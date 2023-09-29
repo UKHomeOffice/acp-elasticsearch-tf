@@ -238,7 +238,7 @@ resource "aws_iam_user_policy" "elasticsearch_iam_users_policy" {
   for_each = local.iam_users_map
 
   name = "${var.name}-${each.value.name_suffix}-policy"
-  user = aws_iam_user.elasticsearch_iam_users[each.key]
+  user = aws_iam_user.elasticsearch_iam_users[each.key].name
 
   policy = data.aws_iam_policy_document.elasticsearch_iam_users_policy[each.key].json
 }
