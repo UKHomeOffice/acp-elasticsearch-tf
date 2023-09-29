@@ -221,7 +221,6 @@ resource "aws_iam_user" "elasticsearch_iam_users" {
 
 data "aws_iam_policy_document" "elasticsearch_iam_users_policy" {
   for_each = local.iam_users_map
-  name     = "${var.name}-${each.value.name_suffix}"
 
   statement {
     sid    = "IAMUserPolicies"
