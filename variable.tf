@@ -188,9 +188,9 @@ variable "tls_security_policy" {
 }
 
 variable "iam_users" {
-  type = object({
+  type = list(object({
     suffix_name    = string
     policy_actions = list(string)
-  })
+  }))
   description = "IAM users to create"
 }
