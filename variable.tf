@@ -147,7 +147,7 @@ variable "s3_bucket_kms_key" {
 
 variable "master_user_iam_enabled" {
   description = "If set to true, the IAM user created by this module will be the master user of the domain."
-  default = false
+  default     = false
 }
 
 variable "master_user_name" {
@@ -185,4 +185,12 @@ variable "tls_security_policy" {
     condition     = contains(["Policy-Min-TLS-1-2-2019-07", "Policy-Min-TLS-1-0-2019-07"], var.tls_security_policy)
     error_message = "Valid values for tls_security_policy are: (Policy-Min-TLS-1-2-2019-07, Policy-Min-TLS-1-0-2019-07)."
   }
+}
+
+variable "iam_users" {
+  type = object({
+    suffix_name    = string
+    policy_actions = list(string)
+  })
+  description = "IAM users to create"
 }
