@@ -199,3 +199,49 @@ module "self_serve_access_keys" {
 
   user_names = aws_iam_user.elasticsearch_iam_user.*.name
 }
+
+
+resource "aws_iam_user" "elasticsearch_iam_users" {
+  for_each = var.iam_users
+  name     = "${var.name}-${each.key}-iam-user"
+
+  tags = merge(
+    var.tags,
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    },
+  )
+}
+
+data "aws_iam_policy_document" "elasticsearch_iam_users_policy" {
+  for_each = var.iam_users
+
+  dynamic "statement" {
+    for_each = each.value
+
+    content {
+      effect = "Allow"
+
+      actions = [for method in statement.value.http_methods : format("es:ESHttp%s", method)]
+
+      resources = [for path in statement.value.http_paths : format("${aws_elasticsearch_domain.elasticsearch.arn}/%s", path)]
+    }
+  }
+}
+
+resource "aws_iam_user_policy" "elasticsearch_iam_users_policy" {
+  for_each = var.iam_users
+
+  name = "${var.name}-${each.key}-policy"
+  user = aws_iam_user.elasticsearch_iam_users[each.key].name
+
+  policy = data.aws_iam_policy_document.elasticsearch_iam_users_policy[each.key].json
+}
+
+module "elasticsearch_iam_users_policy_self_serve_access" {
+  for_each = var.iam_users
+
+  source     = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
+  user_names = [aws_iam_user.elasticsearch_iam_users[each.key].name]
+}
