@@ -208,7 +208,7 @@ locals {
 
 resource "aws_iam_user" "elasticsearch_iam_users" {
   for_each = local.iam_users_map
-  name     = "${var.name}-${each.value.name_suffix}"
+  name     = "${var.name}-${each.value.name_suffix}-iam-user"
 
   tags = merge(
     var.tags,
