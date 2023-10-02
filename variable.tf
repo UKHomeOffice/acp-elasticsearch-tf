@@ -188,9 +188,9 @@ variable "tls_security_policy" {
 }
 
 variable "iam_users" {
-  type = list(object({
-    name_suffix    = string
-    policy_actions = list(string)
-  }))
+  type = map(list(object({
+    actions = list(string)
+    indexes = list(string)
+  })))
   description = "IAM users to create"
 }

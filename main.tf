@@ -201,14 +201,9 @@ module "self_serve_access_keys" {
 }
 
 
-locals {
-  iam_users_map = { for user in var.iam_users : user.name_suffix => user }
-}
-
-
 resource "aws_iam_user" "elasticsearch_iam_users" {
-  for_each = local.iam_users_map
-  name     = "${var.name}-${each.value.name_suffix}-iam-user"
+  for_each = var.iam_users
+  name     = "${var.name}-${each.key}-iam-user"
 
   tags = merge(
     var.tags,
@@ -220,32 +215,32 @@ resource "aws_iam_user" "elasticsearch_iam_users" {
 }
 
 data "aws_iam_policy_document" "elasticsearch_iam_users_policy" {
-  for_each = local.iam_users_map
+  for_each = var.iam_users
 
-  statement {
-    sid    = "IAMUserPolicies"
-    effect = "Allow"
+  dynamic "statement" {
+    for_each = each.value
 
-    actions = each.value.policy_actions
+    content {
+      sid    = "IAMUserPolicies"
+      effect = "Allow"
 
-    resources = [
-      "${aws_elasticsearch_domain.elasticsearch.arn}/*",
-    ]
+      actions = statement.value.actions
+
+      resources = [for index in statement.value.indexes : format("${aws_elasticsearch_domain.elasticsearch.arn}/%s", index)]
+    }
   }
 }
 
 resource "aws_iam_user_policy" "elasticsearch_iam_users_policy" {
-  for_each = local.iam_users_map
+  for_each = var.iam_users
 
-  name = "${var.name}-${each.value.name_suffix}-policy"
+  name = "${var.name}-${each.key}-policy"
   user = aws_iam_user.elasticsearch_iam_users[each.key].name
 
   policy = data.aws_iam_policy_document.elasticsearch_iam_users_policy[each.key].json
 }
 
 module "elasticsearch_iam_users_policy_self_serve_access" {
-  for_each = local.iam_users_map
-
   source     = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
-  user_names = [aws_iam_user.elasticsearch_iam_users[each.key].name]
+  user_names = [for user in aws_iam_user.elasticsearch_iam_users : user.name]
 }
