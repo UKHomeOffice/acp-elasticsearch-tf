@@ -241,6 +241,8 @@ resource "aws_iam_user_policy" "elasticsearch_iam_users_policy" {
 }
 
 module "elasticsearch_iam_users_policy_self_serve_access" {
+  for_each = var.iam_users
+
   source     = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
-  user_names = [for user in aws_iam_user.elasticsearch_iam_users : user.name]
+  user_names = [aws_iam_user.elasticsearch_iam_users[each.key].name]
 }
