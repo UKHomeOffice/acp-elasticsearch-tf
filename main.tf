@@ -221,7 +221,6 @@ data "aws_iam_policy_document" "elasticsearch_iam_users_policy" {
     for_each = each.value
 
     content {
-      sid    = "IAMUserPolicies"
       effect = "Allow"
 
       actions = statement.value.actions

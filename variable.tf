@@ -192,5 +192,5 @@ variable "iam_users" {
     actions = list(string)
     indexes = list(string)
   })))
-  description = "IAM users to create"
+  description = "IAM users to create and their indexes/actions"
 }
