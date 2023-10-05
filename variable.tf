@@ -198,7 +198,7 @@ variable "iam_users" {
     condition = alltrue(
       [for user in var.iam_users : alltrue(
         [for policy in user : alltrue(
-          [for method in policy.http_methods : contains(["Post", "Get", "Put", "Delete", "Head", "Patch", "*"], method)])])])
-    error_message = "Supported types are '*', 'Post', 'Get', 'Put', 'Delete', 'Head' and 'Patch'."
+          [for method in policy.http_methods : contains(["POST", "GET", "PUT", "DELETE", "HEAD", "PATCH", "*"], upper(method))])])])
+    error_message = "Supported types are '*', 'POST', 'GET', 'PUT', 'DELETE', 'HEAD' and 'PATCH'."
   }
 }
