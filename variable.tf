@@ -192,7 +192,7 @@ variable "iam_users" {
     http_methods = list(string)
     http_paths   = list(string)
   })))
-  description = "IAM users to create and their indexes/actions"
+  description = "IAM users to create and their allowed HTTP paths and methods"
 
   validation {
     condition = alltrue(

@@ -61,7 +61,7 @@ Version 2 the input variable tls_security_policy was implemented with a default 
 | <a name="input_email_addresses"></a> [email\_addresses](#input\_email\_addresses) | A list of email addresses for key rotation notifications. | `list(string)` | `[]` | no |
 | <a name="input_encrypt_at_rest_enabled"></a> [encrypt\_at\_rest\_enabled](#input\_encrypt\_at\_rest\_enabled) | Whether to enable encryption at rest | `string` | `"false"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment the elasticsearch cluster is running in i.e. dev, prod etc | `any` | n/a | yes |
-| <a name="input_iam_users"></a> [iam\_users](#input\_iam\_users) | IAM users to create and their indexes/policies | <pre>map(list(object({<br>    actions = list(string)<br>    indexes = list(string)<br>  })))</pre> | n/a | yes |
+| <a name="input_iam_users"></a> [iam\_users](#input\_iam\_users) | IAM users to create and their allowed HTTP paths and methods | <pre>map(list(object({<br>    http_methods = list(string)<br>    http_paths   = list(string)<br>  })))</pre> | n/a | yes |
 | <a name="input_instance_count"></a> [instance\_count](#input\_instance\_count) | Number of data nodes in the cluster | `number` | `4` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Elasticsearch instance type for data nodes in the cluster | `string` | `"t2.small.elasticsearch"` | no |
 | <a name="input_internal_user_database_enabled"></a> [internal\_user\_database\_enabled](#input\_internal\_user\_database\_enabled) | Enable the internal user database | `bool` | `false` | no |
