@@ -223,9 +223,9 @@ data "aws_iam_policy_document" "elasticsearch_iam_users_policy" {
     content {
       effect = "Allow"
 
-      actions = statement.value.actions
+      actions = [for method in statement.value.http_methods : format("es:ESHttp%s", method)]
 
-      resources = [for index in statement.value.indexes : format("${aws_elasticsearch_domain.elasticsearch.arn}/%s", index)]
+      resources = [for path in statement.value.http_paths : format("${aws_elasticsearch_domain.elasticsearch.arn}/%s", path)]
     }
   }
 }

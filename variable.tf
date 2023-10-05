@@ -189,8 +189,8 @@ variable "tls_security_policy" {
 
 variable "iam_users" {
   type = map(list(object({
-    actions = list(string)
-    indexes = list(string)
+    http_methods = list(string)
+    http_paths   = list(string)
   })))
   description = "IAM users to create and their indexes/actions"
 }
