@@ -193,4 +193,12 @@ variable "iam_users" {
     http_paths   = list(string)
   })))
   description = "IAM users to create and their indexes/actions"
+
+  validation {
+    condition = alltrue(
+      [for user in var.iam_users : alltrue(
+        [for policy in user : alltrue(
+          [for method in policy.http_methods : contains(["Post", "Get", "Put", "Delete", "Head", "Patch"], method)])])])
+    error_message = "Supported types are 'Post', 'Get', 'Put', 'Delete', 'Head' and 'Patch'."
+  }
 }
