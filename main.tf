@@ -166,7 +166,7 @@ data "aws_iam_policy_document" "elasticsearch_default_policy_document" {
   count   = var.policy != 0 ? 1 : 0
   version = "2012-10-17"
   statement {
-    sid    = "ElasticsearchPermissions"
+    sid    = var.policy_sid
     effect = "Allow"
     principals {
       type        = "AWS"
