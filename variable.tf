@@ -101,6 +101,12 @@ variable "policy" {
   default     = "default"
 }
 
+variable "policy_sid" {
+  description = "The SID for the default Elasticsearch policy statement. Override if the domain was originally created with a different SID to avoid perpetual drift."
+  type        = string
+  default     = "ElasticsearchPermissions"
+}
+
 variable "require_https" {
   type        = string
   default     = "false"
